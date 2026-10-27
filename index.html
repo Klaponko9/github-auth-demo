@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Авторизация</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: #f5f5f5;
+        }
+
+        .login {
+            text-align: center;
+        }
+
+        button {
+            padding: 15px 25px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="login">
+    <h1>Авторизация</h1>
+    <p>Войдите через GitHub</p>
+
+    <button onclick="login()">Войти через GitHub</button>
+</div>
+
+<script>
+    const SUPABASE_URL = "https://nqxdudnqnkycrnuuqfdq.supabase.co";
+    const SUPABASE_KEY = "sb_publishable_LGOkCcl5Vrj3hJUF0aYBzA_jbpbEy4D";
+
+    const supabaseClient = window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+    );
+
+    async function login() {
+        const { error } = await supabaseClient.auth.signInWithOAuth({
+            provider: "github",
+            options: {
+                redirectTo: window.location.origin
+            }
+        });
+
+        if (error) {
+            alert("Ошибка: " + error.message);
+        }
+    }
+</script>
+
+</body>
+</html>
+
+
+
+
+
