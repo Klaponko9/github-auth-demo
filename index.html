@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
+    <link rel="stylesheet" href="/hgeygfc.js">
     <meta charset="UTF-8">
     <title>Авторизация</title>
 
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
     <style>
+
         body {
             font-family: Arial, sans-serif;
             display: flex;
@@ -36,6 +37,7 @@
     <p>Войдите через GitHub</p>
 
     <button onclick="login()">Войти через GitHub</button>
+    <button onclick="logout()">Выйти</button>
 </div>
 
 <script>
@@ -54,15 +56,30 @@
                 redirectTo: window.location.origin
             }
         });
+        
 
         if (error) {
             alert("Ошибка: " + error.message);
         }
     }
-</script>
+    async function logout() {
+        const { error } = await supabaseClient.auth.signOut();
 
+        if (error) {
+            alert("Ошибка выхода: " + error.message);
+        } else {
+            alert("Вы вышли из аккаунта!");
+        }
+    }
+</script>
 </body>
 </html>
+
+
+
+
+
+
 
 
 
